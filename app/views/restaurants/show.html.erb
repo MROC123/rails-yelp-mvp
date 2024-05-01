@@ -6,6 +6,28 @@
 
 <p><%= @restaurant.phone_number %></p>
 
-<%= link_to "Home", root_path %>
 
-<%= link_to "Create New Restaurant", new_restaurant_path %>
+<p><strong>Reviews</strong></p>
+<ul class="list-group">
+  <% @restaurant.reviews.each do |review| %>
+    <li class="list-group-item"><%= review.content %>
+    <%= review.rating %>
+    <p><%= link_to "Edit Review", edit_review_path(review) %></p>
+    <p><%= link_to "Show Review", review_path(review) %></p>
+    <p><%= link_to "Delete",
+    review_path(review),
+    data: {turbo_method: :delete, turbo_confirm: "Are you sure?"}
+  %></p></li>
+  <% end %>
+</ul>
+<br>
+
+<p><%= link_to "Create New Review", new_restaurant_review_path(@restaurant) %></p>
+
+
+<%= link_to "Home", root_path %>
+<br>
+
+<%= button_to "Destroy this restaurant", @restaurant, method: :delete %>
+
+<p><%= link_to "Edit",  edit_restaurant_path%></p>
